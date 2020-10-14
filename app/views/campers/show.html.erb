@@ -1,0 +1,21 @@
+<h1><%= @camper.name %></h1>
+<h3>Age: <%= @camper.age %></h3>
+<hr>
+
+<% if @camper.activities.present? %>
+    <p><b>Activities:</b></p>
+    <ul>
+        <% @camper.signups.each do |signup| %>
+            <li><%= signup.activity.name %>
+                <% if signup.time > 12 %>
+                    - Time: <%= signup.time.to_i - 12 %>:00 PM 
+                <% elsif signup.time == 12 %>
+                - Time: <%= signup.time.to_i %>:00 PM    
+                <% elsif signup.time < 12 %>
+                - Time: <%= signup.time.to_i %>:00 AM
+                <% end %> 
+            </li>
+        <% end %> 
+    </ul>
+<% end %>
+<p><%=link_to 'Click here', new_signup_path %> to add an activity</p>

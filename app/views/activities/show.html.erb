@@ -1,0 +1,22 @@
+<h1><%= @activity.name %></h1>
+<h3>Difficulity Level: <%= @activity.difficulty %></h3>
+
+<p><b>Campers Involved:</b></p>
+<% if @activity.campers.present? %>
+    <ul>
+        <% @activity.signups.each do |signup| %>
+            <li><%= signup.camper.name %>
+                <% if signup.time > 12 %>
+                    - Time: <%= signup.time.to_i - 12 %>:00 PM 
+                <% elsif signup.time == 12 %>
+                    - Time: <%= signup.time.to_i %>:00 PM    
+                <% elsif signup.time < 12 %>
+                    - Time: <%= signup.time.to_i %>:00 AM
+                <% end %> 
+            </li>
+        <% end %>
+    </ul>    
+<% else %>
+    <p>No campers registered for <%= @activity.name %> at this moment </p>
+<% end %>
+<p><%= link_to 'Click here', new_signup_path %> to register a camper for <%= @activity.name %> </p>
